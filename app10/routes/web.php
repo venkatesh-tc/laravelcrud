@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,7 @@ use App\Http\Controllers\Auth\AuthController;
     Route::get('dashboard', [AuthController::class, 'dashboard']); 
     
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 
 
