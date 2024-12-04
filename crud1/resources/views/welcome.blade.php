@@ -1,7 +1,7 @@
 @extends('layouts.app')
  <!-- Assuming you have a main layout file -->
 
-@section('content')
+@section('contact')
 
 <div class="container mt-5">
             <form method="POST" action="/addcontact">

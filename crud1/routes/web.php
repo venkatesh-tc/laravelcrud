@@ -18,3 +18,8 @@ Route::get('/delete/{id}', [ContactController::class, 'delete']);
 Route::get('/edit/{id}', [ContactController::class, 'edit']);
 Route::post('/edit/{id}', [ContactController::class, 'update']);
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+});
