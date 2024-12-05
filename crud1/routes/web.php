@@ -11,6 +11,8 @@ use App\Http\Controllers\ContactController;/*
 |
 */
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthenController;
 
 Route::get('/', [ContactController::class, 'index']);
 Route::post('/addcontact', [ContactController::class, 'add']);
@@ -19,7 +21,26 @@ Route::get('/edit/{id}', [ContactController::class, 'edit']);
 Route::post('/edit/{id}', [ContactController::class, 'update']);
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
         return view('dashboard');
     });
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('/login', [LoginController::class, 'showLoginForm']);
+});
+Route::controller(AuthenController::class)->group(function () {
+
+    Route::get('/registration', 'registration')->middleware('alreadyLoggedIn');
+    Route::post('/registration-user', 'registerUser')->name('register-user');
+    
+    Route::get('/login', 'login')->middleware('alreadyLoggedIn');
+    Route::post('/login-user', 'loginUser')->name('login-user');
+    
+    Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn');
+    Route::get('/logout', 'logout');
 });
