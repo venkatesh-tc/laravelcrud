@@ -7,7 +7,7 @@ use App\Http\Controllers\ContactController;/*
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| be assigned to the "web" middleware group. Make something great! note it test
 |
 */
 use App\Http\Controllers\PageController;
@@ -31,14 +31,15 @@ Route::middleware('guest')->group(function () {
         return view('welcome');
     });
 
-    Route::get('/login', [LoginController::class, 'showLoginForm']);
+    // Route::get('/login', [LoginController::class, 'showLoginForm']);
 });
 Route::controller(AuthenController::class)->group(function () {
 
-    Route::get('/registration', 'registration')->middleware('alreadyLoggedIn');
+    Route::get('/registration', 'registration');
     Route::post('/registration-user', 'registerUser')->name('register-user');
     
-    Route::get('/login', 'login')->middleware('alreadyLoggedIn');
+    // Route::get('/login', 'login');
+    Route::get('/login', 'login')->middleware('isLoggedIn');
     Route::post('/login-user', 'loginUser')->name('login-user');
     
     Route::get('/dashboard', 'dashboard')->middleware('isLoggedIn');

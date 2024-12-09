@@ -54,10 +54,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'checkguest' => \App\Http\Middleware\CheckGuest::class, // Custom middleware
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'isLoggedIn' => \App\Http\Middleware\IsLoggedIn::class,
-        'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
-
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class
          ];
         
    
