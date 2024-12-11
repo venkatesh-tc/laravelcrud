@@ -28,4 +28,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::post('/logout', 'logout')->name('logout');
     Route::resource('products', ProductController::class);
+    Route::get('/products', [ProductController::class, 'index']);
+
+
 });
