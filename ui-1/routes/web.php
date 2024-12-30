@@ -1,40 +1,46 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategoryController ;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::resource('posts', PostController::class);
-});
-
-// Route::get('/home','App\Http\Controllers\homeController@show');
-
-Route::get('/', [HomeController::class, 'welcome']);
-Route::get('/home', [HomeController::class, 'index']);
-Route::post('/upload', [HomeController::class, 'upload']);
-
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('category', CategoryController::class);
-Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/home', 'App\Http\Controllers\HomeController@index');
-// Route::get('/home', function () {
-//     return view('home');
-//});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard')->middleware('auth:admin');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+});
+Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
+    ->middleware(['auth'])
+    ->name('verification.notice');
+
+    
+
+
+require __DIR__.'/admin-auth.php';
+require __DIR__.'/auth.php';
