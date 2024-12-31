@@ -4,8 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 Route::get('/', function () {
@@ -35,11 +34,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/login', [LoginController::class, 'store'])->name('login.store');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
-Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
-    ->middleware(['auth'])
-    ->name('verification.notice');
 
-    
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 require __DIR__.'/admin-auth.php';
