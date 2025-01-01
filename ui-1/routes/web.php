@@ -29,17 +29,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [LoginController::class, 'create'])->name('login');
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('login', [LoginController::class, 'create'])->name('admin.login');
+Route::post('login', [LoginController::class, 'store']);
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');
+
 });
 
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+
+// Route::prefix('web')->name('web.')->group(function () {
+    
+// Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+// Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+// Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+// });
 
 require __DIR__.'/admin-auth.php';
 require __DIR__.'/auth.php';
