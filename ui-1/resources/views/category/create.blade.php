@@ -45,4 +45,3 @@
 @endsection
 
 
-resources /views /category /edit.blade.php

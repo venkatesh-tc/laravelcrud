@@ -11,6 +11,15 @@ class Admin extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $guard = 'admin';
+  
+    
+    protected $table = 'admins'; // Replace with your table name if needed
+    
+
+
+
+
+
 
     /**
      * The attributes that are mass assignable.

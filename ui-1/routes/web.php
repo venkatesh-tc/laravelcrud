@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
+use App\Http\Controllers\Admin\Auth\Controller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,7 +41,6 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');
 
 });
-
 
 
 
