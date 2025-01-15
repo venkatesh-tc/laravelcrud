@@ -48,4 +48,15 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
+  'realrashid/sweet-alert' => 
+  array (
+    'aliases' => 
+    array (
+      'Alert' => 'RealRashid\\SweetAlert\\Facades\\Alert',
+    ),
+    'providers' => 
+    array (
+      0 => 'RealRashid\\SweetAlert\\SweetAlertServiceProvider',
+    ),
+  ),
 );
