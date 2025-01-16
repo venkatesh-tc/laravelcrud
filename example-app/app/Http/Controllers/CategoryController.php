@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 
 class CategoryController extends Controller
@@ -89,7 +89,7 @@ class CategoryController extends Controller
     {
         $category->delete();
         alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
-        // Alert::success('Deleted Successfully!','Welcome to your dashboard');
+       // Alert::success('Deleted Successfully!','Welcome to your dashboard');
         return redirect('/category')->with('status','Category Deleted Successfully');
        
     }

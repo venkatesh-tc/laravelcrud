@@ -43,9 +43,12 @@
 
                                         <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="d-inline">
 
-                                            <!-- @csrf
-                                            @method('DELETE') -->
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            {{method_field('delete')}}
+
+                                            @csrf
+                                          
+
+                                            <button type="submit" class="btn btn-danger btnclick">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -54,6 +57,7 @@
                         </table>
 
                         {{ $categories->links() }}
+
                     </div>
                 </div>
             </div>
