@@ -14,6 +14,25 @@ class LoginController extends Controller
     /**
      * Display the login view.
      */
+
+     public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials.']);
+    }
+
+
+
+
+
+
+
     public function create(): View
     {
 

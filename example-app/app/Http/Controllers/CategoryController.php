@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class CategoryController extends Controller
@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index() 
     {
-        $categories = Category::paginate(10);
+        $categories = Category::all();
         return view('category.index', compact('categories'));
     }
 
@@ -88,12 +88,17 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
+       alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
        // Alert::success('Deleted Successfully!','Welcome to your dashboard');
         return redirect('/category')->with('status','Category Deleted Successfully');
        
     }
 
+    public function testAlert()
+{
+    Alert::success('Success', 'SweetAlert is working!');
+    return redirect()->route('home');
+}
    
 
 
